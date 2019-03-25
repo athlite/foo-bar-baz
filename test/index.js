@@ -14,10 +14,23 @@ const { expect } = Code;
 
 describe('Deployment', () => {
 
+  let server;
+
   it('registers the main plugin.', async () => {
 
-    const server = await Server.deployment();
-
+    server = await Server.deployment();
     expect(server.registrations[Package.name]).to.exist();
+  });
+
+  it('resolves foobar route', async () => {
+
+    const response = await server.inject({ method: 'get', url: '/foobar' });
+    expect(response.result.foobar).to.equal('baz');
+  });
+
+  it('resolve hello route', async () => {
+
+    const response = await server.inject({ method: 'get', url: '/hello' });
+    expect(response.result.message).to.equal('Hello World!');
   });
 });

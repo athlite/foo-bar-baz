@@ -28,6 +28,7 @@
     "eslint-plugin-hapi": "4.x.x",
     "glue": "5.x.x",
     "hapi": "18.x.x",
+    "hpal": "^2.0.0",
     "hpal-debug": "1.x.x",
     "lab": "18.x.x",
     "toys": "2.x.x"
