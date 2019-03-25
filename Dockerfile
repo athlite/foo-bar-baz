@@ -8,3 +8,5 @@ COPY package.json .
 RUN yarn
 
 COPY . .
+
+ENTRYPOINT [ "./entry.sh" ]
