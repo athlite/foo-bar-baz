@@ -34,8 +34,8 @@ describe('Deployment', () => {
     expect(response.result.message).to.equal('Hello World!');
   });
 
-  it('fails intendedly', () => {
+  it('succeeds intendedly', () => {
 
-    expect(1).to.equal(2);
+    expect(1).to.equal(1);
   });
 });
