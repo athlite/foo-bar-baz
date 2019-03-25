@@ -33,4 +33,9 @@ describe('Deployment', () => {
     const response = await server.inject({ method: 'get', url: '/hello' });
     expect(response.result.message).to.equal('Hello World!');
   });
+
+  it('fails intendedly', () => {
+
+    expect(1).to.equal(2);
+  });
 });
