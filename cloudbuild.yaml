@@ -1,5 +1,16 @@
 steps:
-  - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "eu.gcr.io/$PROJECT_ID/foo-bar-baz", "."]
+  - name: 'node:alpine'
+    id: Test
+    entrypoint: /bin/sh
+    args:
+    - -c
+    - 'yarn test'
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Build
+    args:
+    - 'build'
+    - '-t' 
+    - 'eu.gcr.io/$PROJECT_ID/foo-bar-baz'
+    - '.'
 images:
-  - "eu.gcr.io/$PROJECT_ID/foo-bar-baz"
+  - 'eu.gcr.io/$PROJECT_ID/foo-bar-baz'
