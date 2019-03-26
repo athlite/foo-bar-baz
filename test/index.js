@@ -38,4 +38,9 @@ describe('Deployment', () => {
 
     expect(1).to.equal(1);
   });
+
+  it('should work', () => {
+
+    expect('Thomas').to.equal('Thomas');
+  });
 });
