@@ -4,12 +4,12 @@ steps:
     entrypoint: /bin/sh
     args:
     - -c
-    - 'yarn test'
+    - 'yarn install && yarn test'
   - name: 'gcr.io/cloud-builders/docker'
     id: Build
     args:
     - 'build'
-    - '-t' 
+    - '-t'
     - 'eu.gcr.io/$PROJECT_ID/foo-bar-baz'
     - '.'
 images:
