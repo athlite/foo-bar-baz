@@ -10,7 +10,7 @@ steps:
     args:
     - 'build'
     - '-t'
-    - 'eu.gcr.io/$PROJECT_ID/foo-bar-baz'
+    - 'eu.gcr.io/$PROJECT_ID/foo-bar-baz:$SHORT_SHA'
     - '.'
   
   # This step clones the foo-bar-baz-env repository
