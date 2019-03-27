@@ -12,5 +12,42 @@ steps:
     - '-t'
     - 'eu.gcr.io/$PROJECT_ID/foo-bar-baz'
     - '.'
+  
+  # This step clones the foo-bar-baz-env repository
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: Clone env repository
+    entrypoint: /bin/sh
+    args:
+    - '-c'
+    - |
+      gcloud source repos clone foo-bar-baz-env && \
+      cd foo-bar-baz-env && \
+      git checkout candidate && \
+      git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
+
+  # This step generates the new manifest
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: Generate manifest
+    entrypoint: /bin/sh
+    args:
+    - '-c'
+    - |
+      sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" kubernetes.yaml.tpl | \
+      sed "s/COMMIT_SHA/${SHORT_SHA}/g" > foo-bar-baz-env/kubernetes.yaml
+
+  # This step pushes the manifest back to foo-bar-baz-env
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: Push manifest
+    entrypoint: /bin/sh
+    args:
+    - '-c'
+    - |
+      set -x && \
+      cd foo-bar-baz-env && \
+      git add kubernetes.yaml && \
+      git commit -m "Deploying image eu.gcr.io/${PROJECT_ID}/foo-bar-baz:${SHORT_SHA}
+      Built from commit ${COMMIT_SHA} of repository foo-bar-baz-app
+      Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
+      git push origin candidate
 images:
   - 'eu.gcr.io/$PROJECT_ID/foo-bar-baz'
