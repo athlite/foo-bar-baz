@@ -31,7 +31,7 @@ describe('Deployment', () => {
   it('resolve hello route', async () => {
 
     const response = await server.inject({ method: 'get', url: '/hello' });
-    expect(response.result.message).to.equal('Hello World!');
+    expect(response.result.message).to.equal('Hello World! I have recently changed');
   });
 
   it('succeeds intendedly', () => {
