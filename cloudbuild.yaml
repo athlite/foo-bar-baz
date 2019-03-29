@@ -5,6 +5,7 @@ steps:
     args:
     - -c
     - 'yarn install && yarn test'
+
   - name: 'gcr.io/cloud-builders/docker'
     id: Build
     args:
