@@ -1,5 +1,5 @@
 steps:
-  - name: 'node:alpine'
+  - name: 'node:11-alpine'
     id: Test
     entrypoint: /bin/sh
     args:
